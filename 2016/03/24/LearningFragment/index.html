@@ -16,7 +16,7 @@
 自从Fragment出现，曾经有段时间，感觉大家谈什么都能跟Fragment谈上关系，做什么都要问下Fragment能实现不…哈哈，是不是有点过…
 本篇博客力求为大家说明Fragment如何产生，什么是Fragment，Fragment生命周期，如">
 <meta property="og:image" content="http://img.blog.csdn.net/20140719225005356?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG1qNjIzNTY1Nzkx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2016-03-24T07:20:52.192Z">
+<meta property="og:updated_time" content="2016-03-24T07:23:50.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="Fragment转载请标明出处：http://blog.csdn.net/lmj623565791/article/details/37970961
@@ -87,8 +87,8 @@
 <h2 id="Fragment"><a href="#Fragment" class="headerlink" title="Fragment"></a>Fragment</h2><p>转载请标明出处：<a href="http://blog.csdn.net/lmj623565791/article/details/37970961" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/37970961</a></p>
 <p>自从Fragment出现，曾经有段时间，感觉大家谈什么都能跟Fragment谈上关系，做什么都要问下Fragment能实现不…哈哈，是不是有点过…</p>
 <p>本篇博客力求为大家说明Fragment如何产生，什么是Fragment，Fragment生命周期，如何静态和动态的使用Fragment，Fragment回退栈，Fragment事务；以及Fragment的一些特殊用途，例如：没有布局的Fragment有何用处？Fragment如何与Activity交互？Fragment如何创建对话框？Fragment如何与ActionBar集成等等。</p>
-<p>1、Fragment的产生与介绍<br>Android运行在各种各样的设备中，有小屏幕的手机，超大屏的平板甚至电视。针对屏幕尺寸的差距，很多情况下，都是先针对手机开发一套App，然后拷贝一份，修改布局以适应平板神马超级大屏的。难道无法做到一个App可以同时适应手机和平板么，当然了，必须有啊。Fragment的出现就是为了解决这样的问题。你可以把Fragment当成Activity的一个界面的一个组成部分，甚至Activity的界面可以完全有不同的Fragment组成，更帅气的是Fragment拥有自己的生命周期和接收、处理用户的事件，这样就不必在Activity写一堆控件的事件处理的代码了。更为重要的是，你可以动态的添加、替换和移除某个Fragment。</p>
-<p>2、Fragment的生命周期<br>Fragment必须是依存与Activity而存在的，因此Activity的生命周期会直接影响到Fragment的生命周期。官网这张图很好的说明了两者生命周期的关系：<br><img src="http://img.blog.csdn.net/20140719225005356?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG1qNjIzNTY1Nzkx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="picture1"></p>
+<p>###1、Fragment的产生与介绍<br>Android运行在各种各样的设备中，有小屏幕的手机，超大屏的平板甚至电视。针对屏幕尺寸的差距，很多情况下，都是先针对手机开发一套App，然后拷贝一份，修改布局以适应平板神马超级大屏的。难道无法做到一个App可以同时适应手机和平板么，当然了，必须有啊。Fragment的出现就是为了解决这样的问题。你可以把Fragment当成Activity的一个界面的一个组成部分，甚至Activity的界面可以完全有不同的Fragment组成，更帅气的是Fragment拥有自己的生命周期和接收、处理用户的事件，这样就不必在Activity写一堆控件的事件处理的代码了。更为重要的是，你可以动态的添加、替换和移除某个Fragment。</p>
+<p>###2、Fragment的生命周期<br>Fragment必须是依存与Activity而存在的，因此Activity的生命周期会直接影响到Fragment的生命周期。官网这张图很好的说明了两者生命周期的关系：<br><img src="http://img.blog.csdn.net/20140719225005356?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG1qNjIzNTY1Nzkx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="picture1"></p>
 <p>可以看到Fragment比Activity多了几个额外的生命周期回调方法：<br>onAttach(Activity)<br>当Fragment与Activity发生关联时调用。<br>onCreateView(LayoutInflater, ViewGroup,Bundle)<br>创建该Fragment的视图<br>onActivityCreated(Bundle)<br>当Activity的onCreate方法返回时调用<br>onDestoryView()<br>与onCreateView想对应，当该Fragment的视图被移除时调用<br>onDetach()<br>与onAttach相对应，当Fragment与Activity关联被取消时调用<br>注意：除了onCreateView，其他的所有方法如果你重写了，必须调用父类对于该方法的实现，<br>3、静态的使用Fragment<br>嘿嘿，终于到使用的时刻了~~<br>这是使用Fragment最简单的一种方式，把Fragment当成普通的控件，直接写在Activity的布局文件中。步骤：<br>1、继承Fragment，重写onCreateView决定Fragemnt的布局<br>2、在Activity中声明此Fragment，就当和普通的View一样<br>下面展示一个例子（我使用2个Fragment作为Activity的布局，一个Fragment用于标题布局，一个Fragment用于内容布局）：<br>TitleFragment的布局文件:</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
 &lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;  
