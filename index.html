@@ -51,9 +51,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -63,6 +63,85 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-LIS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/27/LIS/" class="article-date">
+  <time datetime="2016-03-27T07:16:18.000Z" itemprop="datePublished">2016-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/27/LIS/">LIS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于临近实习的时候了，最近希望刷点Leetcode上的算法题，当作练手（当然，本人算法很烂，高手可以绕过，希望通过努力尽量提高自己）</p>
+<p>PS:推荐看下《算法导论》学习</p>
+<h2 id="原题"><a href="#原题" class="headerlink" title="原题"></a>原题</h2><p>Given an unsorted array of integers, find the length of longest increasing subsequence.</p>
+<p>For example,<br>Given [10, 9, 2, 5, 3, 7, 101, 18],<br>The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length.</p>
+<p>Your algorithm should run in O(n2) complexity.</p>
+<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>很明显，这是一个求最长上升子序列的问题。</p>
+<p>这是我一开始的做法（错误的）：</p>
+<pre><code>public class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null) return 0;
+        int length = nums.length;
+        int key;
+        int[] result = new int[length];
+        for (int i = 0; i &lt; length; i++) {
+            result[i] = 1;
+        }
+        for (int i = 0; i &lt; length-1; i++) {
+            key = nums[i];
+            for (int j = i+1; j &lt; length; j++) {
+                if (key &lt; nums[j]) {
+                    result[i] += 1;
+                    key = nums[j];
+                }
+            }
+        }
+
+        int max = max(result);
+        return max;
+    }
+
+    public int max(int[] array) {
+        int max = 0;
+        for (int i = 0; i &lt; array.length; i++) {
+            if (max &lt; array[i]) {
+                max = array[i];
+            }
+        }
+        return max;
+    }
+}
+</code></pre><p>至于错误的原因我这里就不说了， 相信聪明的你可以看得出来。</p>
+<p>后来参考了这篇博客：<br><a href="http://blog.csdn.net/wangkechuang/article/details/7949151" target="_blank" rel="external">http://blog.csdn.net/wangkechuang/article/details/7949151</a></p>
+<p>我大概说一下算法一(n^2)的思路吧，动态规划数组里存储的是以第i个数结尾的最长上升子序列的长度，然后找到dp[]数组里面最大的值，其实就是答案了。可能会有这样的疑问，为什么这就是答案，这跟题目不是看起来不一样吗？其实我们可以这样想，我们所求的最长子序列肯定是以某个元素为结尾，而dp<a href="i=0,1,...n">i</a>里存储的恰好是以第i个元素结尾的最长子序列长度，因此只要找到最大dp[i]即为所求。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/27/LIS/" data-id="cimbhvm3z000050w4y2rclnmq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-LearningFragment" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -355,7 +434,7 @@ public class FriendFragment extends Fragment
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/24/LearningFragment/" data-id="cim5y1egl00007ow4duerzq4o" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/03/24/LearningFragment/" data-id="cimbhvm47000150w4fk8s78ap" class="article-share-link">Share</a>
       
       
     </footer>
@@ -400,7 +479,7 @@ public class FriendFragment extends Fragment
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/07/hello-world/" data-id="cim5y1egu00017ow4jpyz7lwj" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/03/07/hello-world/" data-id="cimbhvm4b000250w47136zm9j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -435,9 +514,13 @@ public class FriendFragment extends Fragment
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/03/27/LIS/">LIS</a>
+          </li>
         
           <li>
             <a href="/2016/03/24/LearningFragment/">(no title)</a>
@@ -460,7 +543,7 @@ public class FriendFragment extends Fragment
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
